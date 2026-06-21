@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alerts – FarmGuard AI</title>
+  <meta name="description" content="FarmGuard AI alerts page. View real-time health alerts, critical notifications, and full alert history for your livestock monitoring system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/alerts.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon logo-icon-sm">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#16a34a"/><path d="M8 20 C8 14 12 10 16 10 C20 10 24 14 24 20" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="12" cy="18" r="2" fill="white"/><circle cx="20" cy="18" r="2" fill="white"/><path d="M14 22 C14 23 15 24 16 24 C17 24 18 23 18 22" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+        </div>
+        <span class="logo-text">FarmGuard <span class="logo-ai">AI</span></span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Main</div>
+      <a href="dashboard.html" class="sidebar-link" id="navDashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a href="alerts.html" class="sidebar-link active" id="navAlerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        Alerts
+        <span class="sidebar-badge" id="sidebarAlertBadge">3</span>
+      </a>
+      <div class="sidebar-section-label">Navigation</div>
+      <a href="index.html" class="sidebar-link" id="navHome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+    </nav>
+    <div class="sidebar-status">
+      <div class="status-dot-wrap">
+        <span class="status-dot status-dot-live"></span>
+        <span class="status-text">Live Monitoring</span>
+      </div>
+      <span class="status-time" id="sidebarTime">--:--:--</span>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <div class="main-content" id="mainContent">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="topbar-menu-btn" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title">
+        <h1 class="topbar-heading">Alert Center</h1>
+        <span class="topbar-sub" id="topbarDate">Loading...</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-live-indicator">
+          <span class="live-dot"></span>
+          <span class="live-text">LIVE</span>
+        </div>
+        <button class="topbar-clear-btn" id="clearAllBtn">Clear All</button>
+      </div>
+    </header>
+
+    <!-- ===== ALERT STATS ROW ===== -->
+    <section class="dash-section">
+      <div class="alert-stats-grid">
+        <div class="alert-stat-card alert-stat-critical" id="statCritical">
+          <div class="alert-stat-icon">🔴</div>
+          <div class="alert-stat-info">
+            <div class="alert-stat-num" id="statCriticalNum">1</div>
+            <div class="alert-stat-label">Critical</div>
+          </div>
+        </div>
+        <div class="alert-stat-card alert-stat-warning" id="statWarning">
+          <div class="alert-stat-icon">🟡</div>
+          <div class="alert-stat-info">
+            <div class="alert-stat-num" id="statWarningNum">2</div>
+            <div class="alert-stat-label">Warnings</div>
+          </div>
+        </div>
+        <div class="alert-stat-card alert-stat-info" id="statInfo">
+          <div class="alert-stat-icon">🔵</div>
+          <div class="alert-stat-info">
+            <div class="alert-stat-num" id="statInfoNum">4</div>
+            <div class="alert-stat-label">Informational</div>
+          </div>
+        </div>
+        <div class="alert-stat-card alert-stat-resolved" id="statResolved">
+          <div class="alert-stat-icon">✅</div>
+          <div class="alert-stat-info">
+            <div class="alert-stat-num" id="statResolvedNum">8</div>
+            <div class="alert-stat-label">Resolved</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FILTER BAR ===== -->
+    <section class="dash-section">
+      <div class="alert-filter-bar">
+        <div class="filter-label">Filter by:</div>
+        <div class="filter-pills">
+          <button class="filter-pill active" data-filter="all" id="filterAll">All</button>
+          <button class="filter-pill filter-critical" data-filter="critical" id="filterCritical">🔴 Critical</button>
+          <button class="filter-pill filter-warning" data-filter="warning" id="filterWarning">🟡 Warning</button>
+          <button class="filter-pill filter-info" data-filter="info" id="filterInfo">🔵 Info</button>
+          <button class="filter-pill filter-resolved" data-filter="resolved" id="filterResolved">✅ Resolved</button>
+        </div>
+        <div class="filter-search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="filter-search" id="alertSearch" placeholder="Search alerts..." />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ACTIVE ALERTS ===== -->
+    <section class="dash-section">
+      <div class="section-row-header">
+        <h2 class="dash-section-title">Active Alerts</h2>
+        <span class="dash-section-badge" id="activeAlertCount">3 active</span>
+      </div>
+      <div class="alerts-list" id="activeAlertsList">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- ===== ALERT HISTORY ===== -->
+    <section class="dash-section">
+      <div class="section-row-header">
+        <h2 class="dash-section-title">Alert History</h2>
+        <span class="dash-section-badge">Last 24 hours</span>
+      </div>
+      <div class="alerts-list" id="historyAlertsList">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- ===== ARCHITECTURE DIAGRAM ===== -->
+    <section class="dash-section">
+      <div class="section-row-header">
+        <h2 class="dash-section-title">System Architecture</h2>
+      </div>
+      <div class="arch-flow-card">
+        <div class="arch-flow">
+          <div class="arch-flow-node arch-flow-hw" id="archFlowHw">
+            <div class="arch-flow-icon">⚙️</div>
+            <div class="arch-flow-label">ESP32 + DHT22</div>
+            <div class="arch-flow-sub">MPU6050 + MQ2 + Pot.</div>
+          </div>
+          <div class="arch-flow-arrow">
+            <div class="arch-flow-line"></div>
+            <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M8 0L16 8L8 16L6.6 14.6L12.2 9H0V7H12.2L6.6 1.4L8 0Z"/></svg>
+          </div>
+          <div class="arch-flow-node arch-flow-engine" id="archFlowEngine">
+            <div class="arch-flow-icon">🤖</div>
+            <div class="arch-flow-label">FarmGuard AI Engine</div>
+            <div class="arch-flow-sub">Data Processing</div>
+          </div>
+          <div class="arch-flow-arrow">
+            <div class="arch-flow-line"></div>
+            <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M8 0L16 8L8 16L6.6 14.6L12.2 9H0V7H12.2L6.6 1.4L8 0Z"/></svg>
+          </div>
+          <div class="arch-flow-node arch-flow-health" id="archFlowHealth">
+            <div class="arch-flow-icon">🏥</div>
+            <div class="arch-flow-label">Health Analysis Agent</div>
+            <div class="arch-flow-sub">Risk Assessment</div>
+          </div>
+          <div class="arch-flow-arrow">
+            <div class="arch-flow-line"></div>
+            <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M8 0L16 8L8 16L6.6 14.6L12.2 9H0V7H12.2L6.6 1.4L8 0Z"/></svg>
+          </div>
+          <div class="arch-flow-node arch-flow-reco" id="archFlowReco">
+            <div class="arch-flow-icon">💡</div>
+            <div class="arch-flow-label">Recommendation Agent</div>
+            <div class="arch-flow-sub">Actionable Insights</div>
+          </div>
+          <div class="arch-flow-arrow">
+            <div class="arch-flow-line"></div>
+            <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M8 0L16 8L8 16L6.6 14.6L12.2 9H0V7H12.2L6.6 1.4L8 0Z"/></svg>
+          </div>
+          <div class="arch-flow-node arch-flow-alert" id="archFlowAlert">
+            <div class="arch-flow-icon">🔔</div>
+            <div class="arch-flow-label">Alert Management</div>
+            <div class="arch-flow-sub">Notifications</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end main-content -->
+
+  <script src="js/alerts.js"></script>
+</body>
+</html>
